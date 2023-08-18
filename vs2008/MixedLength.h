@@ -13,17 +13,57 @@ namespace IPC_WM_COPYDATA {
 
 		class Packet {
 		public:
-			Packet();
-			~Packet();
+			Packet()
+				: _type(ePACKET_TYPE_UNKNOWN)
+			{}
+			~Packet() {}
 
-			ePACKET_TYPE type();
+			ePACKET_TYPE type() {
+				return _type;
+			}
 
-			virtual unsigned int length() = 0;
-			virtual const char* content() = 0;
-			virtual bool load(const char* buf) = 0;
+			bool isOk() {
+				return (_type != ePACKET_TYPE_UNKNOWN);
+			}
+
+			bool parse(const char* src) {
+				ePACKET_TYPE* tmp = (ePACKET_TYPE*)src;
+				if (*tmp > ePACKET_TYPE_COUNT || *tmp < ePACKET_TYPE_UNKNOWN) {
+					return false;
+				}
+
+				unsigned int* payloadLength = (unsigned int*)(src + sizeof(ePACKET_TYPE));
+
+				if (!_parsePayload(src + sizeof(ePACKET_TYPE) + sizeof(unsigned int), *payloadLength)) {
+					return false;
+				}
+
+				_type = *tmp;
+				return true;
+			}
+
+			void setData(char* buffer) {	// header included
+				ePACKET_TYPE* tmp = (ePACKET_TYPE*)buffer;
+				*tmp = _type;
+				unsigned int* length = (unsigned int*)(buffer + sizeof(ePACKET_TYPE));
+				*length = _payloadLength();
+				_setPayload(buffer + sizeof(ePACKET_TYPE) + sizeof(unsigned int));
+			}
+
+			unsigned int dataLength() {
+				return sizeof(ePACKET_TYPE) + sizeof(unsigned int) + _payloadLength();
+			}
 
 		protected:
 			ePACKET_TYPE _type;
+
+			// load from buffer
+			virtual bool _parsePayload(const char* payloadSrc, unsigned int payloadLength) = 0;	// no header included
+
+			// output to buffer
+			virtual void _setPayload(char* dst) = 0;			// no header included
+			virtual unsigned int _payloadLength() = 0;	// no header included
+
 		};
 
 		const unsigned int BufferLength = 1024 * 256;
@@ -37,24 +77,26 @@ namespace IPC_WM_COPYDATA {
 
 		extern Packet* getPacket(char* buf);
 
-		class Sender {
+		class PacketSender {
 		public:
-			Sender(HWND to, HWND from)
+			PacketSender(HWND to, HWND from)
 				: _to(to)
 				, _from(from)
 				, _index(0)
 			{
 				_data.dataType = eCOPYDATA_TYPE_MIXED_LENGTH;
+				_data.count = 0;
 				memset(_data.buf, 0, BufferLength);
 			}
-			~Sender() {}
+			~PacketSender() {}
 
 			bool add(Packet& packet) {
-				if ((_index + packet.length()) > BufferLength) {
+				if ((_index + packet.dataLength()) > BufferLength) {
 					return false;
 				}
-				memcpy(_data.buf + _index, packet.content(), packet.length());
-				_index += packet.length();
+				packet.setData(_data.buf + _index);
+				_index += packet.dataLength();
+				_data.count++;
 				return true;
 			}
 
@@ -80,7 +122,7 @@ namespace IPC_WM_COPYDATA {
 			HWND _from;
 		};
 
-		extern std::queue<Packet> parse(PCOPYDATASTRUCT pcds);
+		extern std::queue<Packet*> parse(PCOPYDATASTRUCT pcds);
 
 	}
 

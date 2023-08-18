@@ -32,9 +32,9 @@ namespace IPC_WM_COPYDATA {
 		}
 
 		template<typename T>
-		class Sender {
+		class PacketSender {
 		public:
-			Sender(HWND to, HWND from)
+			PacketSender(HWND to, HWND from)
 				: _to(to)
 				, _from(from)
 			{
@@ -44,7 +44,7 @@ namespace IPC_WM_COPYDATA {
 				_data.count = 0;
 				memset(_data.buf, 0, BufferLength);
 			}
-			~Sender() {}
+			~PacketSender() {}
 
 			bool add(T& packet) {
 				if ((_index() + _data.packetLength) > BufferLength) {
