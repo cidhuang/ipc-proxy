@@ -15,7 +15,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// 英文 (美國) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -80,15 +80,15 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS
 CAPTION "Client"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "MY_STRUCT",IDC_STATIC,7,7,191,64
+    GROUPBOX        "",IDC_STATIC,7,7,191,64
     PUSHBUTTON      "Send Message",IDC_SENDMSG_BUTTON,121,77,68,14
-    LTEXT           "Number:",IDC_STATIC,17,26,28,8
-    LTEXT           "Message:",IDC_STATIC,17,46,32,8
-    EDITTEXT        IDC_NUMBER_EDIT,63,24,128,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_MESSAGE_EDIT,63,44,128,14,ES_AUTOHSCROLL
+    LTEXT           "Number:",IDC_STATIC,17,26,28,8,NOT WS_VISIBLE
+    LTEXT           "Message:",IDC_STATIC,17,46,32,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_NUMBER_EDIT,63,24,128,14,ES_AUTOHSCROLL | NOT WS_VISIBLE | WS_DISABLED
+    EDITTEXT        IDC_MESSAGE_EDIT,63,44,128,14,ES_AUTOHSCROLL | NOT WS_VISIBLE | WS_DISABLED
 END
 
-#endif    // English (U.S.) resources
+#endif    // 英文 (美國) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
