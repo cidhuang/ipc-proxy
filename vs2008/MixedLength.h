@@ -1,15 +1,12 @@
 #pragma once
 
 #include "IPC_WM_COPYDATA.h"
+#include "PacketType.h"
 #include <queue>
 
 namespace IPC_WM_COPYDATA {
 
 	namespace MixedLength {
-
-		typedef int ePACKET_TYPE;
-		const ePACKET_TYPE ePACKET_TYPE_UNKNOWN = -1;
-		extern const ePACKET_TYPE ePACKET_TYPE_COUNT;
 
 		class Packet {
 		public:
@@ -61,14 +58,14 @@ namespace IPC_WM_COPYDATA {
 			virtual bool _parsePayload(const char* payloadSrc, unsigned int payloadLength) = 0;	// no header included
 
 			// output to buffer
-			virtual void _setPayload(char* dst) = 0;			// no header included
+			virtual void _setPayload(char* dst) = 0;	// no header included
 			virtual unsigned int _payloadLength() = 0;	// no header included
 
 		};
 
 		const unsigned int BufferLength = 1024 * 256;
 		struct Data {
-			eCOPYDATA_TYPE dataType;	// = eCOPYDATA_TYPE_MIXED_LENGTH_PACKETS; cannot init in vs2008
+			eCOPYDATA_TYPE dataType;	// = eCOPYDATA_TYPE_MIXED_LENGTH; cannot init in vs2008
 			unsigned int count;
 			char buf[BufferLength];
 		};

@@ -16,10 +16,10 @@ namespace IPC_WM_COPYDATA {
 		};
 
 		template<typename T>
-		bool handle(SafeQueue<std::unique_ptr<Item<T>>>& queue);
+		bool handle(std::unique_ptr<Item<T>> item);
 
 		template<typename T>
-		bool handle(std::unique_ptr<Item<T>> packet);
+		bool handle(SafeQueue<std::unique_ptr<Item<T>>>& queue);
 
 	}
 
