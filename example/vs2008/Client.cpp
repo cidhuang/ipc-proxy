@@ -59,7 +59,7 @@ WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 using namespace IPC_WM_COPYDATA;
 
 #include <ctime>
-
+#include <sstream>
 
 //
 //   FUNCTION: ReportError(LPWSTR, DWORD)
@@ -145,15 +145,20 @@ void OnCommand(HWND hWnd, int id, HWND hwndCtl, UINT codeNotify)
 		{
 			i1++;
 
+			std::string i1str;
+			std::ostringstream convert;
+			convert << i1;
+			i1str = convert.str();
+
 			query.from = i1;
-			query.query = std::to_string(i1);
+			query.query = i1str;
 			if (!sender.add(query)) {
 				sender.send();
 				sender.add(query);
 			}
 
 			comment.from = i1;
-			comment.comment = std::to_string(i1);
+			comment.comment = i1str;
 			if (!sender.add(comment)) {
 				sender.send();
 				sender.add(comment);
