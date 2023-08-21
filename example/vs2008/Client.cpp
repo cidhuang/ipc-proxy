@@ -60,6 +60,7 @@ using namespace IPC_WM_COPYDATA;
 
 #include <ctime>
 #include <sstream>
+#include <fstream>
 
 //
 //   FUNCTION: ReportError(LPWSTR, DWORD)
@@ -90,22 +91,18 @@ void ReportError(LPCWSTR pszFunction, DWORD dwError = GetLastError())
 
 BOOL OnCopyData(HWND hWnd, HWND hwndFrom, PCOPYDATASTRUCT pcds)
 {
-	/*
-	string str = toJsonString(pcds);
-	Json::Value json;
-	Json::Reader reader;
-	if (!reader.parse(str, json)) {
-		return false;
+	eCOPYDATA_TYPE type = getCopyDataType(pcds);
+	if (type == eCOPYDATA_TYPE_MIXED_LENGTH) {
+		std::queue<MixedLength::Packet*> queue = MixedLength::parse(pcds);
+		MixedLength::Packet* packet = queue.front();
+		if (packet->type() == MixedLength::ePACKET_TYPE_Comment) {
+			MixedLength::PacketComment* comment = static_cast<MixedLength::PacketComment*>(packet);
+			std::ofstream outfile;
+			outfile.open("Client.txt", std::ios_base::app); // append instead of overwrite
+			outfile << comment->comment << "\n";
+		}
 	}
 
-	if (!json.isArray()) {
-		Json::Value result = toCmd(hWnd, hwndFrom, json)->exec();
-		return true;
-	}
-	for (unsigned int i = 0; i < json.size(); i++) {
-		Json::Value result = toCmd(hWnd, hwndFrom, json[i])->exec();
-	}
-	//*/
 	return true;
 }
 

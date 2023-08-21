@@ -3,7 +3,6 @@
 #include "Packet.h"
 
 #include <fstream>
-#include <codecvt>
 using namespace std;
 
 namespace IPC_WM_COPYDATA {
@@ -45,6 +44,14 @@ namespace IPC_WM_COPYDATA {
 			if (item->packet->type() == MixedLength::ePACKET_TYPE_Query) {
 				unique_ptr<MixedLength::PacketQuery> tmp = static_cast_unique_ptr<MixedLength::PacketQuery>(move(item->packet));
 				appendText("MixedLengthQuery.txt", "Query: " + to_string(tmp->from) + ", " + tmp->query);
+				if ((tmp->from % 500) == 0) {
+					MixedLength::PacketSender sender(item->hwndFrom, item->hWnd);
+					MixedLength::PacketComment comment;
+					comment.from = tmp->from;
+					comment.comment = "Reply: " + tmp->query;
+					sender.add(comment);
+					sender.send();
+				}
 				return true;
 			}
 			if (item->packet->type() == MixedLength::ePACKET_TYPE_Comment) {
