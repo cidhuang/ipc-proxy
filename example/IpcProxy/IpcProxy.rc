@@ -79,10 +79,10 @@ CAPTION "IpcProxy"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "",IDC_STATIC,7,7,547,315
-    LTEXT           "PacketQuery:",IDC_STATIC,17,24,45,8
+    LTEXT           "Query + Comment:",IDC_STATIC,17,24,63,8
     LTEXT           "Position:",IDC_STATIC,17,42,28,8
-    LTEXT           "",IDC_NUMBER_STATIC,61,24,481,8
-    LTEXT           "",IDC_MESSAGE_STATIC,61,42,486,273
+    LTEXT           "",IDC_NUMBER_STATIC,96,24,446,8
+    LTEXT           "",IDC_MESSAGE_STATIC,60,42,487,273
 END
 
 #endif    // English (United States) resources
