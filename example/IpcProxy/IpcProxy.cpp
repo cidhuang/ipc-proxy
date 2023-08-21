@@ -78,7 +78,12 @@ BOOL OnCopyData(HWND hWnd, HWND hwndFrom, PCOPYDATASTRUCT pcds)
         return MixedLength::PacketQueue::GetInstance().add(hWnd, hwndFrom, pcds);
     }
     if (type == eCOPYDATA_TYPE_FIXED_LENGTH) {
-        return FixedLength::PacketQueue<FixedLength::Position>::GetInstance().add(hWnd, hwndFrom, pcds);
+        if (FixedLength::getPacketType(pcds) == FixedLength::ePACKET_TYPE_Position) {
+            return FixedLength::PacketQueue<FixedLength::Position>::GetInstance().add(hWnd, hwndFrom, pcds);
+        }
+        if (FixedLength::getPacketType(pcds) == FixedLength::ePACKET_TYPE_Size) {
+            return FixedLength::PacketQueue<FixedLength::Size>::GetInstance().add(hWnd, hwndFrom, pcds);
+        }
     }
     return true;
 }
@@ -93,6 +98,7 @@ void OnClose(HWND hWnd)
 {
     MixedLength::PacketQueue::GetInstance().stop();
     FixedLength::PacketQueue<FixedLength::Position>::GetInstance().stop();
+    FixedLength::PacketQueue<FixedLength::Size>::GetInstance().stop();
     EndDialog(hWnd, 0);
 }
 
@@ -111,7 +117,7 @@ INT_PTR CALLBACK DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     if ((ltime1 - ltime0) > 1) {
         ltime0 = ltime1;
         SetDlgItemText(hWnd, IDC_NUMBER_STATIC, std::to_wstring(MixedLength::PacketQueue::GetInstance().queueSize()).c_str());
-        SetDlgItemText(hWnd, IDC_MESSAGE_STATIC, std::to_wstring(FixedLength::PacketQueue<FixedLength::Position>::GetInstance().queueSize()).c_str());
+        SetDlgItemText(hWnd, IDC_MESSAGE_STATIC, std::to_wstring(FixedLength::PacketQueue<FixedLength::Position>::GetInstance().queueSize() + FixedLength::PacketQueue<FixedLength::Size>::GetInstance().queueSize()).c_str());
     }
 
     switch (message)
@@ -140,13 +146,15 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 {
     time(&ltime0);
 
-    thread t2(&MixedLength::PacketQueue::start, &MixedLength::PacketQueue::GetInstance());
-    thread t(&FixedLength::PacketQueue<FixedLength::Position>::start, &FixedLength::PacketQueue<FixedLength::Position>::GetInstance());
+    thread t(&MixedLength::PacketQueue::start, &MixedLength::PacketQueue::GetInstance());
+    thread t2(&FixedLength::PacketQueue<FixedLength::Position>::start, &FixedLength::PacketQueue<FixedLength::Position>::GetInstance());
+    thread t3(&FixedLength::PacketQueue<FixedLength::Size>::start, &FixedLength::PacketQueue<FixedLength::Size>::GetInstance());
 
     auto r = DialogBox(hInstance, MAKEINTRESOURCE(IDD_MAINDIALOG), NULL, DialogProc);
 
-    t2.join();
     t.join();
+    t2.join();
+    t3.join();
 
     return r;
 }

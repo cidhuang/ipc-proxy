@@ -13,6 +13,11 @@ namespace IPC_WM_COPYDATA {
 			return ePACKET_TYPE_Position;
 		}
 
+		template<>
+		ePACKET_TYPE getPacketType<Size>() {
+			return ePACKET_TYPE_Size;
+		}
+
 	}
 
 	namespace MixedLength {
@@ -26,7 +31,12 @@ namespace IPC_WM_COPYDATA {
 				if (!tmp->parse(buf)) {
 					return 0;
 				}
-				return tmp;
+				break;
+			case ePACKET_TYPE_Comment:
+				tmp = new PacketComment();
+				if (!tmp->parse(buf)) {
+					return 0;
+				}
 				break;
 			default:
 				break;
@@ -64,6 +74,37 @@ namespace IPC_WM_COPYDATA {
 
 		unsigned int PacketQuery::_payloadLength() {
 			return sizeof(from) + query.length() + 1;
+		}
+
+		PacketComment::PacketComment()
+			: Packet()
+			, from(0)
+			, comment("")
+		{
+			_type = ePACKET_TYPE_Comment;
+		}
+
+		PacketComment::~PacketComment() {}
+
+		bool PacketComment::_parsePayload(const char* payloadSrc, unsigned int payloadLength) {
+			unsigned int* tmp = (unsigned int*)payloadSrc;
+			from = *tmp;
+			comment = payloadSrc + sizeof(unsigned int);
+			if (payloadLength != (sizeof(from) + comment.length() + 1)) {
+				return false;
+			}
+			return true;
+		}
+
+		void PacketComment::_setPayload(char* dst) {
+			unsigned int* tmp = (unsigned int*)dst;
+			*tmp = from;
+			comment.copy(dst + sizeof(unsigned int), comment.length());
+			dst[_payloadLength() - 1] = 0;
+		}
+
+		unsigned int PacketComment::_payloadLength() {
+			return sizeof(from) + comment.length() + 1;
 		}
 
 	}

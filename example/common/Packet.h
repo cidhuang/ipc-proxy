@@ -15,6 +15,12 @@ namespace IPC_WM_COPYDATA {
 			long long time;
 		};
 
+		struct Size {
+			int width;
+			int height;
+			long long time;
+		};
+
 	}
 
 	namespace MixedLength {
@@ -26,6 +32,24 @@ namespace IPC_WM_COPYDATA {
 
 			unsigned int from;
 			std::string query;
+
+		protected:
+			// load from buffer
+			bool _parsePayload(const char* payloadSrc, unsigned int payloadLength);	// no header included
+
+			// output to buffer
+			void _setPayload(char* dst);	// no header included
+			unsigned int _payloadLength();	// no header included
+
+		};
+
+		class PacketComment : public Packet {
+		public:
+			PacketComment();
+			~PacketComment();
+
+			unsigned int from;
+			std::string comment;
 
 		protected:
 			// load from buffer

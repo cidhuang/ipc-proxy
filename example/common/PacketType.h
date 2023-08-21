@@ -7,6 +7,7 @@ namespace IPC_WM_COPYDATA {
 		enum ePACKET_TYPE {
 			ePACKET_TYPE_UNKNOWN = -1,
 			ePACKET_TYPE_Position,
+			ePACKET_TYPE_Size,
 			ePACKET_TYPE_COUNT,
 		};
 
@@ -17,6 +18,7 @@ namespace IPC_WM_COPYDATA {
 		enum ePACKET_TYPE {
 			ePACKET_TYPE_UNKNOWN = -1,
 			ePACKET_TYPE_Query,
+			ePACKET_TYPE_Comment,
 			ePACKET_TYPE_COUNT,
 		};
 

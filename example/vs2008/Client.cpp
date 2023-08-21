@@ -128,59 +128,69 @@ void OnCommand(HWND hWnd, int id, HWND hwndCtl, UINT codeNotify)
 			return;
 		}
 
-		//*
 		time_t ltime0;
 		time(&ltime0);
-
 		time_t ltime02;
-		int i0 = 0;
 
 		MixedLength::PacketSender sender(hTargetWnd, hWnd);
-		MixedLength::PacketQuery* query = new MixedLength::PacketQuery();
-		query->from = 12347654;
-		query->query = "§A¬O½Ö¡H";
-		sender.add(*query);
-		sender.send();
-
 		FixedLength::PacketSender<FixedLength::Position> sender2(hTargetWnd, hWnd);
+		FixedLength::PacketSender<FixedLength::Size> sender3(hTargetWnd, hWnd);
 
 		int i1 = 0;
+		MixedLength::PacketQuery query;
+		MixedLength::PacketComment comment;
 		FixedLength::Position position;
+		FixedLength::Size size;
 		do
 		{
 			i1++;
+
+			query.from = i1;
+			query.query = std::to_string(i1);
+			if (!sender.add(query)) {
+				sender.send();
+				sender.add(query);
+			}
+
+			comment.from = i1;
+			comment.comment = std::to_string(i1);
+			if (!sender.add(comment)) {
+				sender.send();
+				sender.add(comment);
+			}
+
 			position.x = i1;
 			position.y = i1;
 			position.time = i1;
-			sender2.add(position);
-			//if ((i1 % 2) == 0) {
-			sender2.send();
-			return;
-			//}
-		} while (i1 < 1000); //(logs.add(log));
-
-		do
-		{
-			//cmd->send();
-
-			//int i1 = 0;
-			FixedLength::Position position;
-
-			do
-			{
-				i1++;
-				position.x = i1;
-				position.y = i1;
-				position.time = i1;
+			if (!sender2.add(position)) {
+				sender2.send();
 				sender2.add(position);
-			} while (sender2.add(position));
+			}
 
-			sender2.send();
-			i1--;
+			size.width = i1;
+			size.height = i1;
+			size.time = i1;
+			if (!sender3.add(size)) {
+				sender3.send();
+				sender3.add(size);
+			}
+
+			if ((i1 % 100) == 0) {
+				sender.send();
+			}
+			if ((i1 % 200) == 0) {
+				sender2.send();
+			}
+			if ((i1 % 300) == 0) {
+				sender3.send();
+			}
+
 			time(&ltime02);
-			i0++;
 		} while ((ltime02 - ltime0) < 1);
 
+		sender.send();
+		sender2.send();
+		sender3.send();
 		return;
 
 	}
