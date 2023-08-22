@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{6f91a063-503e-47ce-9138-b8373f32e173}</ProjectGuid>
-    <RootNamespace>IpcProxy</RootNamespace>
+    <ProjectGuid>{588b0883-740d-4bf6-b0e4-9d79eb499c83}</ProjectGuid>
+    <RootNamespace>Client</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,11 +74,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -88,11 +88,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -104,15 +104,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\common;..\..\src;..\..\vs2008;.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard_C>Default</LanguageStandard_C>
-      <LanguageStandard>Default</LanguageStandard>
+      <AdditionalIncludeDirectories>..\common;..\..\src;..\..\vs2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libssl.lib;libcrypto.lib;jsoncpp.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>.\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,45 +119,33 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\common;..\..\src;..\..\vs2008;.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard_C>Default</LanguageStandard_C>
-      <LanguageStandard>Default</LanguageStandard>
+      <AdditionalIncludeDirectories>..\common;..\..\src;..\..\vs2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libssl.lib;libcrypto.lib;jsoncpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\vs2008\FixedLength.cpp" />
-    <ClCompile Include="..\..\vs2008\IPC_WM_COPYDATA.cpp" />
-    <ClCompile Include="..\..\vs2008\MixedLength.cpp" />
-    <ClCompile Include="..\common\Packet.cpp" />
-    <ClCompile Include="IpcProxy.cpp" />
-    <ClCompile Include="PacketHandler.cpp" />
+    <ResourceCompile Include="..\vs2008\Client.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="IpcProxy.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\src\FixedLengthPacketQueue.h" />
-    <ClInclude Include="..\..\src\MixedLengthPacketQueue.h" />
-    <ClInclude Include="..\..\src\PacketHandler.h" />
-    <ClInclude Include="..\..\src\SafeQueue.hpp" />
-    <ClInclude Include="..\..\src\singleton.hpp" />
-    <ClInclude Include="..\..\src\singleton_dclp.hpp" />
     <ClInclude Include="..\..\vs2008\FixedLength.h" />
     <ClInclude Include="..\..\vs2008\IPC_WM_COPYDATA.h" />
     <ClInclude Include="..\..\vs2008\MixedLength.h" />
     <ClInclude Include="..\common\Packet.h" />
     <ClInclude Include="..\common\PacketType.h" />
     <ClInclude Include="..\common\stdafx.h" />
-    <ClInclude Include="httplib.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\vs2008\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\vs2008\FixedLength.cpp" />
+    <ClCompile Include="..\..\vs2008\IPC_WM_COPYDATA.cpp" />
+    <ClCompile Include="..\..\vs2008\MixedLength.cpp" />
+    <ClCompile Include="..\common\Packet.cpp" />
+    <ClCompile Include="..\vs2008\Client.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

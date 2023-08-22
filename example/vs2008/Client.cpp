@@ -98,7 +98,7 @@ BOOL OnCopyData(HWND hWnd, HWND hwndFrom, PCOPYDATASTRUCT pcds)
 		if (packet->type() == MixedLength::ePACKET_TYPE_Comment) {
 			MixedLength::PacketComment* comment = static_cast<MixedLength::PacketComment*>(packet);
 			std::ofstream outfile;
-			outfile.open("Client.txt", std::ios_base::app); // append instead of overwrite
+			outfile.open("Client.log", std::ios_base::app); // append instead of overwrite
 			outfile << comment->comment << "\n";
 		}
 	}

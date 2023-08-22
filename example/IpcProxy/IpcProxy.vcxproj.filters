@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\common\Packet.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vs2008\FixedLength.cpp">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vs2008\IPC_WM_COPYDATA.cpp">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vs2008\MixedLength.cpp">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClCompile>
+    <ClCompile Include="IpcProxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\common\Packet.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\PacketType.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\stdafx.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FixedLengthPacketQueue.h">
+      <Filter>ipc-proxy\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MixedLengthPacketQueue.h">
+      <Filter>ipc-proxy\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PacketHandler.h">
+      <Filter>ipc-proxy\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SafeQueue.hpp">
+      <Filter>ipc-proxy\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\singleton_dclp.hpp">
+      <Filter>ipc-proxy\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\singleton.hpp">
+      <Filter>ipc-proxy\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vs2008\FixedLength.h">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vs2008\IPC_WM_COPYDATA.h">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vs2008\MixedLength.h">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="httplib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="common">
+      <UniqueIdentifier>{a49a41a4-5770-4d19-89b3-d86847b848e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ipc-proxy">
+      <UniqueIdentifier>{a57796ef-da57-4fd6-86d5-1f6b271c94c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ipc-proxy\src">
+      <UniqueIdentifier>{0a0dd9eb-fda1-4754-8f04-3f5d45df675c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ipc-proxy\vs2008">
+      <UniqueIdentifier>{23c81de9-6a52-43ab-860c-c454d564a484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{702e99e9-cb15-4f6f-ab3c-95bd279726ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{aeb6ff3f-935e-4bf5-a37f-c2b9263771fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{41cffdd5-f0f1-4cb9-ace6-d83e20f95613}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IpcProxy.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
