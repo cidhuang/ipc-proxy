@@ -24,10 +24,10 @@ namespace IPC_WM_COPYDATA {
 					return false;
 				}
 
-				Data* tmp = (Data*)pcds->lpData;
+				Data* data = (Data*)pcds->lpData;
 				unsigned int index = 0;
-				for (unsigned int i = 0; i < tmp->count; i++) {
-					Packet* packet = getPacket(tmp->buf + index);
+				for (unsigned int i = 0; i < data->count; i++) {
+					Packet* packet = getPacket(data->buf + index);
 					PacketHandler::Item<Packet>* tmp = new PacketHandler::Item<Packet>({ hWnd, hwndFrom, unique_ptr<Packet>(packet) });
 					_queue.Produce(std::unique_ptr<PacketHandler::Item<Packet>>(tmp));
 					index += packet->dataLength();

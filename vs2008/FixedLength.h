@@ -1,19 +1,16 @@
 #pragma once
 
 #include "IPC_WM_COPYDATA.h"
+#include "PacketType.h"
 #include <queue>
 
 namespace IPC_WM_COPYDATA {
 
 	namespace FixedLength {
 
-		typedef int ePACKET_TYPE;
-		const ePACKET_TYPE ePACKET_TYPE_UNKNOWN = -1;
-		extern const ePACKET_TYPE ePACKET_TYPE_COUNT;
-
 		const unsigned int BufferLength = 1024 * 256;
 		struct Data {
-			eCOPYDATA_TYPE dataType;	// = eCOPYDATA_TYPE_FIXED_LENGTH_PACKETS; cannot init in vs2008
+			eCOPYDATA_TYPE dataType;	// = eCOPYDATA_TYPE_FIXED_LENGTH; cannot init in vs2008
 			ePACKET_TYPE packetType;	// = eLOG_TYPE_UNKNOWN; cannot init in vs2008
 			unsigned int packetLength;
 			unsigned int count;

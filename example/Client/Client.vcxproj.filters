@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{93ea914b-88c0-4ccd-bacb-9640c2a175f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ipc-proxy">
+      <UniqueIdentifier>{d3405276-ec4f-4e1d-a60a-03fba136a349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ipc-proxy\vs2008">
+      <UniqueIdentifier>{e96ee448-462e-454a-a576-9a7b5de65e7c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\vs2008\Client.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\vs2008\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Packet.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\PacketType.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\stdafx.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vs2008\FixedLength.h">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vs2008\IPC_WM_COPYDATA.h">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vs2008\MixedLength.h">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vs2008\Client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\Packet.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vs2008\FixedLength.cpp">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vs2008\IPC_WM_COPYDATA.cpp">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vs2008\MixedLength.cpp">
+      <Filter>ipc-proxy\vs2008</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
