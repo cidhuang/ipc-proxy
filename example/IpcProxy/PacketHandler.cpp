@@ -49,11 +49,6 @@ namespace IPC_WM_COPYDATA {
 			outfile << text << "\n";
 		}
 
-		template<typename TO, typename FROM>
-		unique_ptr<TO> static_cast_unique_ptr(unique_ptr<FROM>&& old) {
-			return unique_ptr<TO>{static_cast<TO*>(old.release())};
-		}
-
 		template<>
 		bool handle(unique_ptr<Item<MixedLength::Packet>> item) {
 			if (item->packet->type() == MixedLength::ePACKET_TYPE_Query) {
