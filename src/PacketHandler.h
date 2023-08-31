@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "SafeQueue.hpp"
 #include <memory>
+using namespace std;
 
 namespace IPC_WM_COPYDATA {
 
@@ -12,14 +13,19 @@ namespace IPC_WM_COPYDATA {
 		struct Item {
 			HWND hWnd;
 			HWND hwndFrom;
-			std::unique_ptr<T> packet;
+			unique_ptr<T> packet;
 		};
 
 		template<typename T>
-		bool handle(std::unique_ptr<Item<T>> item);
+		bool handle(unique_ptr<Item<T>> item);
 
 		template<typename T>
-		bool handle(SafeQueue<std::unique_ptr<Item<T>>>& queue);
+		bool handle(SafeQueue<unique_ptr<Item<T>>>& queue);
+
+		template<typename TO, typename FROM>
+		unique_ptr<TO> static_cast_unique_ptr(unique_ptr<FROM>&& old) {
+			return unique_ptr<TO>{static_cast<TO*>(old.release())};
+		}
 
 	}
 
