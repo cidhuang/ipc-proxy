@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "FixedLength.h"
 
 namespace IPC_WM_COPYDATA {
